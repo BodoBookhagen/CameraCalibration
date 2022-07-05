@@ -11,11 +11,14 @@ The python code `python/single_camera_calibration_charuco_chess_openCV.py` can b
 
 The code will read all calibration images from one directory, plots a summary figure showing all photos, performs the camera calibration, and writes the distortion coefficient and intrinsic camera calibration to an OpenCV XML file.
 
-![Example of 49 photos showing a chessboard pattern for camera calibration (Sony alpha-7 55 mm lense).](examples/camA_chessboard_49images.jpg)
+**Example of 49 photos showing a chessboard pattern for camera calibration (Sony alpha-7 55 mm lense):**
+![](examples/camA_chessboard_49images.jpg)
 
-![All detected chessboard intersection - make sure that points are also taken from the corners of the image (Sony alpha-7 55 mm lense).](examples/camA_chess_23324corners.png)
+**All detected chessboard intersection - make sure that points are also taken from the corners of the image (Sony alpha-7 55 mm lense):**
+![](examples/camA_chess_23324corners.png)
 
-![Example camera calibration and pixel distortion using intrinsic and distorted parameters (Sony alpha-7 55 mm lense).](examples/sony_alpha7_55m_CC_chess_comparison_1panel.jpg)
+**Example camera calibration and pixel distortion using intrinsic and distorted parameters (Sony alpha-7 55 mm lense):**
+![](examples/sony_alpha7_55m_CC_chess_comparison_1panel.jpg)
 
 ### Examples
 Example call from Ubuntu command line (expecting OpenCV to be installed).
@@ -24,7 +27,7 @@ Example call from Ubuntu command line (expecting OpenCV to be installed).
 
 ```bash
 camA_initial_CC='cam_A_calib_9parameters_fine_charuco_20Feb2022.xml'
-charuco_ifiles_camA='sony_stereo_f13_iso1600/charuco/black_a_stereo/*.JPG'
+charuco_ifiles_camA='sony_stereo_f13_iso1600/charuco/black_a_stereo/DSC*.JPG'
 camA_charuco_savexml_file='sony_stereo_f13_iso1600/charuco/cam_A_black_calib_9parameters_fine_charuco_25Mar2022.xml'
 camA_CC_comparison_3panel_png='sony_stereo_f13_iso1600/charuco/CC_comparison_3panel.png'
 camA_CC_comparison_1panel_png='sony_stereo_f13_iso1600/charuco/CC_comparison_1panel.png'
@@ -42,10 +45,11 @@ single_camera_calibration_charuco_chess_openCV.py --camA_initial_CC $camA_initia
 
 #### Using Sony alpha-7000 with fixed 55 mm lense and chess board
 
-Using no initial calibration file and this requires setting parameters for camera calibration.
+Using no initial calibration file and this requires setting the parameters *camA_Height*, *camA_Width*, and
+*focal_length_pixels*.
 
 ```bash
-chess_ifiles_camA='near/*.JPG'
+chess_ifiles_camA='near/DSC*.JPG'
 camA_chess_savexml_file='sony_alpha7_55m_CC_05July2022.xml'
 camA_chess_75pbest_savexml_file='sony_alpha7_55m_CC_75p_05July2022.xml'
 camA_CC_comparison_3panel_png='sony_alpha7_55m_CC_chess_comparison_3panel.png'
@@ -68,14 +72,14 @@ single_camera_calibration_charuco_chess_openCV.py  \
 Using no initial calibration file and this requires setting parameters for camera calibration.
 
 ```bash
-chess_ifiles_camA='near/*.JPG'
+chess_ifiles_camA='near/DSC*.JPG'
 camA_chess_savexml_file='sony_alpha7_85m_CC_05July2022.xml'
 camA_chess_75pbest_savexml_file='sony_alpha7_85m_CC_75p_05July2022.xml'
 camA_CC_comparison_3panel_png='sony_alpha7_85m_CC_chess_comparison_3panel.png'
 camA_CC_comparison_1panel_png='sony_alpha7_85m_CC_chess_comparison_1panel.png'
 camA_Height=5304
 camA_Width=7952
-focal_length_pixels=12675
+focal_length_pixels=18918
 
 single_camera_calibration_charuco_chess_openCV.py  \
   --chess_ifiles_camA $chess_ifiles_camA \
