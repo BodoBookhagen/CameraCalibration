@@ -13,8 +13,6 @@ from datetime import datetime
 import xml.etree.ElementTree as e
 
 # JSON vals to string
-
-
 def dict_to_str(obj, common_val=None):
     """
     Iterates through a dict and returns a string of the values and a count of
@@ -36,12 +34,10 @@ def dict_to_str(obj, common_val=None):
 
 
 # Extract attributes and generate XML
-
-
 def to_xml(filepath, xml_dir):
     """
-    Takes a Calib.io JSON file and relevant distortion coefficients and returns
-    an OpenCV XML file.
+    Takes a Calib.io JSON file and relevant distortion coefficients and writes
+    an OpenCV XML file to disk.
     """
 
     # Open JSON file from filepath provided
@@ -64,9 +60,7 @@ def to_xml(filepath, xml_dir):
         p_list = []
         for param in ptrs:
             p_list.append(ptrs[param]["val"])
-        # p_list:
-        # [f, ar, cx, cy, k1, k2, k3, k4, k5, k6, p1, p2,
-        #  s1, s2, s3, s4, tauX, tauY]
+
         # Now adust the parameter list order to match Open CV's dist_coeff
         # matrix ordering.
         opencv_order = [0, 1, 2, 3, 4, 5, 10, 11, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17]
@@ -150,14 +144,14 @@ def to_xml(filepath, xml_dir):
 
     # Write XML file
     dir_path = os.path.dirname(os.path.abspath(filepath))
-    
+
     if xml_dir == "":
         xml_dir = os.getcwd() + "/xml/"
         if not os.path.exists(os.getcwd() + "/xml"):
             os.makedirs(os.getcwd() + "/xml")
-    
+
     xml_dir = xml_dir if xml_dir.endswith("/") else xml_dir + "/"
-    
+
     out_filename = os.path.basename(filepath)
     out_filename = os.path.splitext(out_filename)[0] + ".xml"
     out_filepath = xml_dir + out_filename
@@ -183,22 +177,18 @@ if __name__ == "__main__":
         type=str,
         required=False,
         default="",
-        help="The location where the XML file(s) should be saved. If empty, it/they will be saved in" \
+        help="The location where the XML file(s) should be saved. If empty, it/they will be saved in"
         " a new folder in the CWD called 'xml'.",
     )
 
     args = parser.parse_args()
 
-    # Assign directories to user input or else CWD
+    # Assign json_dir to user input or else CWD
     json_dir = args.json_dir if not args.json_dir == "" else os.getcwd()
-    # xml_dir == args.xml_dir if not args.xml_dir == "" else os.getcwd()
-
     json_dir = json_dir if json_dir.endswith("/") else json_dir + "/"
-    # xml_dir == xml_dir if xml_dir.endswith("/") else xml_dir + "/"
 
     for file in os.listdir(json_dir):
         if file.endswith("json"):
-            # printing file name of desired extension
             to_xml(json_dir + file, args.xml_dir)
         else:
             continue
