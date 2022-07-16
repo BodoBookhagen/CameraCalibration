@@ -40,7 +40,8 @@ single_camera_calibration_charuco_chess_openCV.py --camA_initial_CC $camA_initia
   --camA_charuco_savexml_file $camA_charuco_savexml_file \
   --camA_CC_comparison_3panel_png $camA_CC_comparison_3panel_png \
   --camA_CC_comparison_1panel_png $camA_CC_comparison_1panel_png \
-  --camA_Height $camA_Height --camA_Width $camA_Width --focal_length_pixels $focal_length_pixels
+  --camA_Height $camA_Height --camA_Width $camA_Width \
+  --focal_length_pixels $focal_length_pixels
 ```
 
 #### Using Sony alpha-7000 with fixed 55 mm lense and chess board
@@ -64,7 +65,8 @@ single_camera_calibration_charuco_chess_openCV.py  \
   --camA_chess_75pbest_savexml_file $camA_chess_75pbest_savexml_file \
   --camA_CC_comparison_3panel_png $camA_CC_comparison_3panel_png \
   --camA_CC_comparison_1panel_png $camA_CC_comparison_1panel_png \
-  --camA_Height $camA_Height --camA_Width $camA_Width --focal_length_pixels $focal_length_pixels
+  --camA_Height $camA_Height --camA_Width $camA_Width \
+  --focal_length_pixels $focal_length_pixels
 ```
 
 #### Using Sony alpha-7000 with fixed 85 mm lense and chess board
@@ -87,5 +89,6 @@ single_camera_calibration_charuco_chess_openCV.py  \
   --camA_chess_75pbest_savexml_file $camA_chess_75pbest_savexml_file \
   --camA_CC_comparison_3panel_png $camA_CC_comparison_3panel_png \
   --camA_CC_comparison_1panel_png $camA_CC_comparison_1panel_png \
-  --camA_Height $camA_Height --camA_Width $camA_Width --focal_length_pixels $focal_length_pixels
+  --camA_Height $camA_Height --camA_Width $camA_Width \
+  --focal_length_pixels $focal_length_pixels
 ```
