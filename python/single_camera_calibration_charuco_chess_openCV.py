@@ -1,6 +1,6 @@
 # /usr/bin/env python
-""" Single Camera Calibration using either charuco or chess boards (bodo.bookhagen@uni-potsdam.de)
-
+"""
+Single Camera Calibration using either charuco or chess boards (bodo.bookhagen@uni-potsdam.de)
 """
 
 import numpy as np
