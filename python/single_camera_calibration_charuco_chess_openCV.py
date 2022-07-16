@@ -1562,7 +1562,7 @@ if __name__ == "__main__":
         type=str,
         required=False,
         default="",
-        help="OpenCV XML file with camera calibration from chess board using only the best 75% of images and removing 25% of weakest images.",
+        help="OpenCV XML file with camera calibration from chess board using only the best 75%% of images and removing 25%% of weakest images.",
     )
 
     parser.add_argument(
