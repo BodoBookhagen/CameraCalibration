@@ -172,7 +172,7 @@ As mentioned above, we recommend the use of a remote shutter or using a short se
 ### Calibration
 When using OpenCV or Calib.io, consider the following rules of thumb:
 - Only 20-30 images are necessary
-- If possible, estimate only for ""$k_1$ $k_2$". Otherwise prefer "$k_1$, $k_2$, $k_3$, $p_1$, $p_2$".
+- If possible, estimate only for "k<sub>1</sub>, k<sub>2</sub>". Otherwise prefer "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>, p<sub>2</sub>".
 - Include between 20 and 30 images.
 
 ## Our testing
@@ -186,10 +186,10 @@ To inform the above recommendations, multiple calibration sessions were conducte
 As can be seen in Figure 1, the following potential recommendations emerge:
 - Include between 20 and 30 images.
 - Use the Calib.io checkerboard (referred to as "chessboard" above), though the Calib.io CharuCo board also performs well.
-- While it appears that using "$k_1$, $k_2$, $k_3$", "$k_1$, $k_2$, $k_3$, $p_1$", or "$k_1$, $k_2$, $p_2$, we decided to look further into the corresponding distortion plots.
+- While it appears that using "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", or "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub>, we decided to look further into the corresponding distortion plots.
 
 ### Which distortion coefficients should be estimated during calibration?<a name="which-coefficents" />
-We conducted calibrations comparing different combinations of distortion coefficients, and found that there were diminishing returns (and the possibility of overfitting) when including coefficients beyond $k_1$ and $k_2$.
+We conducted calibrations comparing different combinations of distortion coefficients, and found that there were diminishing returns (and the possibility of overfitting) when including coefficients beyond k<sub>1</sub> and k<sub>2</sub>.
 
 #### Results of solving for different combinations of distortion coefficients
 ![Comparison of k1, k2, vs. k1](img/fuji_k1k2_k1_comparison.png)
@@ -197,13 +197,13 @@ We conducted calibrations comparing different combinations of distortion coeffic
 ![Comparison of k1, k2, vs. k1, k2, k3, p1](img/fuji_k1k2_k1k2k3p1_comparison.png)
 ![Comparison of k1, k2, vs. k1, k2, p1, p2](img/fuji_k1k2_k1k2p1p2_comparison.png)
 ![Comparison of k1, k2, vs. k1, k2, k3, p1, p2](img/fuji_k1k2_k1k2k3p1p2_comparison.png)
-<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 2. Our results after solving for different combinations of distortion coefficients (using Calib.io). Left column: $k_1$, $k_2$; middle column: other coefficient combinations; right column: comparison plots.</em></p>
+<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 2. Our results after solving for different combinations of distortion coefficients (using Calib.io). Left column: k<sub>1</sub>, k<sub>2</sub>; middle column: other coefficient combinations; right column: comparison plots.</em></p>
 
-Figure 2 shows that, while the combinations of "$k_1$, $k_2$, $k_3$", "$k_1$, $k_2$, $k_3$, $p_1$", and "$k_1$, $k_2$, $p_2$ result in low RMSE, their distortion plots are much more exaggerated. With this in mind, we believe it is best to do the following:
+Figure 2 shows that, while the combinations of "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", and "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub> result in low RMSE, their distortion plots are much more exaggerated. With this in mind, we believe it is best to do the following:
 
 Avoid the following combinations, despite their low RMSE:
-- Only $k_1$
-- $k_1$, $k_2$, $k_3$
-- $k_1$, $k_2$, $k_3$, $p_1$
+- Only k<sub>1</sub>
+- k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>
+- k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>
 
-Prefer: $k_1$, $k_2$
+Prefer: k<sub>1</sub>, k<sub>2</sub>
