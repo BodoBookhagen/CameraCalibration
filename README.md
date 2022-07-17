@@ -186,7 +186,7 @@ To inform the above recommendations, multiple calibration sessions were conducte
 As can be seen in Figure 1, the following potential recommendations emerge:
 - Include between 20 and 30 images.
 - Use the Calib.io checkerboard (referred to as "chessboard" above), though the Calib.io CharuCo board also performs well.
-- While it appears that using "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", or "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub>, we decided to look further into the corresponding distortion plots.
+- While it appears that using "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", or "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub>" is preferred due to their low RMSE, we decided to look further into the corresponding distortion plots.
 
 ### Which distortion coefficients should be estimated during calibration?<a name="which-coefficents" />
 We conducted calibrations comparing different combinations of distortion coefficients, and found that there were diminishing returns (and the possibility of overfitting) when including coefficients beyond k<sub>1</sub> and k<sub>2</sub>.
