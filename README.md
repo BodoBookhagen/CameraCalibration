@@ -7,6 +7,7 @@ Alternative calibration options include importing calibration data produced with
 **Table of Contents**
 - [Usage](#Usage)
     - [Examples](#Examples)
+    - [Converting Calib.io JSON calibration files to OpenCV XML format](#convert-json-xml)
 - [Best practices for a good calibration](#best-practices)
     - [Image capture](#Image-capture)
     - [Calibration](#Calibration)
@@ -30,7 +31,7 @@ The code will read all calibration images from one directory, plots a summary fi
 **Example camera calibration and pixel distortion using intrinsic and distorted parameters (Sony alpha-7 55 mm lense):**
 ![](examples/sony_alpha7_55m_CC_chess_comparison_1panel.jpg)
 
-## Examples
+### Examples
 Example call from Ubuntu command line (expecting OpenCV to be installed).
 
 #### Using Sony alpha-6000 and charuco board
@@ -103,6 +104,18 @@ single_camera_calibration_charuco_chess_openCV.py  \
   --focal_length_pixels $focal_length_pixels
 ```
 
+### Converting Calib.io JSON calibration files to OpenCV XML format<a name="convert-json-xml" />
+If you have an exported JSON calibration file from a calibration done using Calib.io, you convert it using our conversion script. If `json_dir` or `xml_dir` is not supplied, the script will look for JSON files in the current directory and ouput the related XML files in a newly created `xml/` directory.
+
+```bash
+python python/calib-to-opencv.py --json_dir="path/to/json" --xml_dir="path/to/output"
+```
+
+For help use:
+```bash
+python python/calib-to-opencv.py -h
+```
+
 ## Best practices<a name="best-practices" />
 ### Image capture
 Before capturing calibration images it is critical to ensure the camera is configured  and mounted properly, the board is high quality, and the scene is set appropriately to ensure a smooth calibration process.
@@ -172,8 +185,8 @@ As mentioned above, we recommend the use of a remote shutter or using a short se
 ### Calibration
 When using OpenCV or Calib.io, consider the following rules of thumb:
 - Only 20-30 images are necessary
-- If possible, estimate only for "k<sub>1</sub>, k<sub>2</sub>". Otherwise prefer "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>, p<sub>2</sub>".
-- Include between 20 and 30 images.
+- If possible, estimate only for "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", leaving out additional p coefficents.
+- Use between 20 and 30 images.
 
 ## Our testing
 To inform the above recommendations, multiple calibration sessions were conducted with a variety of cameras, targets, image counts, and target-camera orientations. To analyze the success of a calibration, we looked at each calibration's root mean squared reprojection error (RMSE) and distortion plot. To compare two calibrations' distortion plots, we simply took the difference between the two.
@@ -186,24 +199,17 @@ To inform the above recommendations, multiple calibration sessions were conducte
 As can be seen in Figure 1, the following potential recommendations emerge:
 - Include between 20 and 30 images.
 - Use the Calib.io checkerboard (referred to as "chessboard" above), though the Calib.io CharuCo board also performs well.
-- While it appears that using "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", or "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub>" is preferred due to their low RMSE, we decided to look further into the corresponding distortion plots.
+- While it appears that using "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", or "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub>" is preferred due to their low RMSE, we decided to look further into the corresponding distortion plots to determine if the additional distortion coefficients were necessary to achieve a good calibration.
 
 ### Which distortion coefficients should be estimated during calibration?<a name="which-coefficents" />
-We conducted calibrations comparing different combinations of distortion coefficients, and found that there were diminishing returns (and the possibility of overfitting) when including coefficients beyond k<sub>1</sub> and k<sub>2</sub>.
+We conducted calibrations comparing different combinations of distortion coefficients, and found that there were diminishing returns (and the possibility of overfitting) when including coefficients beyond "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>".
 
 #### Results of solving for different combinations of distortion coefficients
-![Comparison of k1, k2, vs. k1](img/fuji_k1k2_k1_comparison.png)
-![Comparison of k1, k2, vs. k1, k2, k3](img/fuji_k1k2_k1k2k3_comparison.png)
-![Comparison of k1, k2, vs. k1, k2, k3, p1](img/fuji_k1k2_k1k2k3p1_comparison.png)
-![Comparison of k1, k2, vs. k1, k2, p1, p2](img/fuji_k1k2_k1k2p1p2_comparison.png)
-![Comparison of k1, k2, vs. k1, k2, k3, p1, p2](img/fuji_k1k2_k1k2k3p1p2_comparison.png)
+![Comparison of k1, k2, vs. k1](img/sony_a7_k1k2_k1_comparison.png)
+![Comparison of k1, k2, vs. k1, k2, k3](img/sony_a7_k1k2_k1k2k3_comparison.png)
+![Comparison of k1, k2, vs. k1, k2, k3, p1](img/sony_a7_k1k2_k1k2k3p1_comparison.png)
+![Comparison of k1, k2, vs. k1, k2, p1, p2](img/sony_a7_k1k2_k1k2p1p2_comparison.png)
+![Comparison of k1, k2, vs. k1, k2, k3, p1, p2](img/sony_a7_k1k2_k1k2k3p1p2_comparison.png)
 <p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 2. Our results after solving for different combinations of distortion coefficients (using Calib.io). Left column: k<sub>1</sub>, k<sub>2</sub>; middle column: other coefficient combinations; right column: comparison plots.</em></p>
 
-Figure 2 shows that, while the combinations of "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", and "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub> result in low RMSE, their distortion plots are much more exaggerated. With this in mind, we believe it is best to do the following:
-
-Avoid the following combinations, despite their low RMSE:
-- Only k<sub>1</sub>
-- k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>
-- k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>
-
-Prefer: k<sub>1</sub>, k<sub>2</sub>
+Figure 2 shows that, while the combinations of "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", and "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub> result in slightly lower RMSE than "k<sub>1</sub>, k<sub>2</sub>", it is not enough to justify estimating for the additional p coefficients. Therefore, our recommendations are to use simply "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", without the need for additional p coefficients.

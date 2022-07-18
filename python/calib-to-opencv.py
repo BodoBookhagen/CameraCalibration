@@ -63,6 +63,7 @@ def to_xml(filepath, xml_dir):
 
         # Now adust the parameter list order to match Open CV's dist_coeff
         # matrix ordering.
+        # [f, ar, cx, cy, k1, k2, p1, p2, k3, k4, k5, k6, s1, s2, s3, s4, tauX, tauY]
         opencv_order = [0, 1, 2, 3, 4, 5, 10, 11, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17]
         p_list[:] = [p_list[i] for i in opencv_order]
 
@@ -99,11 +100,12 @@ def to_xml(filepath, xml_dir):
         dist_coeff_str = ""
         num_coeffs = 0
 
-        for j, val in enumerate(p_list):
-            if j > 3:
-                if val != 0 and val != 1:
-                    num_coeffs += 1
-                    dist_coeff_str += str(val) + " "
+        for j, val in enumerate(p_list[4:9]):
+            # If we're going to have params beyond k1, ensure that k2, p1, p2 are
+            # included, even if they're 0 (opencv needs them since the order is k1, k2,
+            # p1, p2, k3, ...)
+            num_coeffs += 1
+            dist_coeff_str += str(val) + " "
 
         e.SubElement(dist_coeff_ele, "rows").text = str(num_coeffs)
         e.SubElement(dist_coeff_ele, "cols").text = "1"
