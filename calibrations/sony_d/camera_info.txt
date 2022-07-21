@@ -1,0 +1,39 @@
+Brightness Value: 4.267
+Color Space: sRGB
+Components Configuration: 1, 2, 3, 0
+Compressed Bits Per Pixel: 3
+Contrast: Normal
+Custom Rendered: Normal process
+Date Time Digitized: 3 Mar, 2022 at 14:18:47
+Date Time Original: 3 Mar, 2022 at 14:18:47
+Digital Zoom Ratio: 1
+Exif Version: 2.3
+Exposure Bias Value: 0
+Exposure Mode: Auto exposure
+Exposure Program: Aperture priority
+Exposure Time: 1/80
+File Source: DSC
+Flash: Off, did not fire
+FlashPix Version: 1.0
+FNumber: 14
+Focal Length: 35
+Focal Length In 35mm Film: 52
+Photographic Sensitivity (ISO): 2,500
+Lens Model: E 35mm F1.8 OSS
+Lens Specification: 35, 35, 1.8, 1.8
+Light Source: unknown
+Max Aperture Value: 1.695
+Metering Mode: Pattern
+Pixel X Dimension: 6,000
+Pixel Y Dimension: 4,000
+RecommendedExposureIndex: 2,500
+Saturation: Normal
+Scene Capture Type: Standard
+Scene Type: A directly photographed image
+SensitivityType: Recommended exposure index (REI)
+Sharpness: Normal
+White Balance: Auto white balance
+Flash Compensation: 0
+Image Stabilization: Off
+Lens ID: 65,535
+Lens Model: Sony E 35mm F1.8 OSS

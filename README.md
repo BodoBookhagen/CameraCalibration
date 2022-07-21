@@ -14,6 +14,7 @@ Alternative calibration options include importing calibration data produced with
 - [Our testing](#Our-testing)
     - [Different calibration approaches](#Different-calibration-approaches)
     - [Which distortion coefficients should be estimated during calibration?](#which-coefficents)
+    - [Comparing target type, capture angle, and number of distortion coefficients](#broad-comparison)
 
 ## Usage
 The parameters have been optimized for the cameras that are available at the Geological Remote Sensing lab at the University of Potsdam. These are several Sony alpha-6 (24 MP), Sony alpha-7 (40 MP), and Fuji X-100 (24 MP) all with 55 mm or 85 mm fixed lenses.
@@ -194,12 +195,7 @@ To inform the above recommendations, multiple calibration sessions were conducte
 ### Different calibration approaches
 #### Comparing calibration methods by RMSE
 ![RMSE comparison of several calibration variables](img/best-practices-comparison.png)
-<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 1. To optimize the calibration process, we investigated the performance of estimating for different combinations of distortion coefficients (left), the number of images that should be included in the calibration (center-left), target type (center-right), and camera type (right).</em></p>
-
-As can be seen in Figure 1, the following potential recommendations emerge:
-- Include between 20 and 30 images.
-- Use the Calib.io checkerboard (referred to as "chessboard" above), though the Calib.io CharuCo board also performs well.
-- While it appears that using "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", or "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub>" is preferred due to their low RMSE, we decided to look further into the corresponding distortion plots to determine if the additional distortion coefficients were necessary to achieve a good calibration.
+<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 1. To optimize the calibration process, we investigated the performance of estimating for different combinations of distortion coefficients (left), the number of images that should be included in the calibration (center-left), target type (center-right), and camera type (right). Please note that these figures indicate only broad trends from the many tests done and are not indicative of the final recommendations.</em></p>
 
 ### Which distortion coefficients should be estimated during calibration?<a name="which-coefficents" />
 We conducted calibrations comparing different combinations of distortion coefficients, and found that there were diminishing returns (and the possibility of overfitting) when including coefficients beyond "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>".
@@ -210,6 +206,30 @@ We conducted calibrations comparing different combinations of distortion coeffic
 ![Comparison of k1, k2, vs. k1, k2, k3, p1](img/sony_a7_k1k2_k1k2k3p1_comparison.png)
 ![Comparison of k1, k2, vs. k1, k2, p1, p2](img/sony_a7_k1k2_k1k2p1p2_comparison.png)
 ![Comparison of k1, k2, vs. k1, k2, k3, p1, p2](img/sony_a7_k1k2_k1k2k3p1p2_comparison.png)
+
 <p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 2. Our results after solving for different combinations of distortion coefficients (using Calib.io). Left column: k<sub>1</sub>, k<sub>2</sub>; middle column: other coefficient combinations; right column: comparison plots.</em></p>
 
 Figure 2 shows that, while the combinations of "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", and "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub> result in slightly lower RMSE than "k<sub>1</sub>, k<sub>2</sub>", it is not enough to justify estimating for the additional p coefficients. Therefore, our recommendations are to use simply "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", without the need for additional p coefficients.
+
+### Comparing target type, capture angle, and number of distortion coefficients<a name="broad-comparison" />
+
+In order to inform the magnitude of influence target type, capture angle, and number of distortion coefficients has on reprojection error, we calculated the difference between each calibration and between each distortion plot. This allowed us to then visualize the significance of each aspect of the calibration process (Figures 3-5).
+
+#### Overall effect on RMS RPE
+
+![2p vs. 3p. vs 5p](img/board_angle_p_comparison.png)
+
+<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 3. RMS RPE differences between CharuCo and checkerboard targets, near-nadir and oblique capture angles, 2-parameter (k1, k2) and 3-parameter (k1, k2, k3), and 2-parameter and 5-parameter (k1, k2, k3, p1, p2) calibrations. All images taken using a Sony A7 camera with a 55mm fixed lens. Numbers in parentheses represent the RMS RPE of the respective treatments.</em></p>
+
+#### Target type
+
+![Checkerboard vs. CharuCuo](img/checkerboard_vs_charuco_oblique.png)
+
+<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 4. Distortion plot comparison between Checkerboard and CharuCo targets when solving for two parameters (k1, k2), three parameters (k1, k2, k3), and five parameters (k1, k2, k3, p1, p2). All calibrations done with Sony A7 at an oblique angle with a 55mm fixed lens.</em></p>
+
+#### Capture angle
+
+![Nadir vs. Oblique](img/nadir_vs_oblique_checkerboard.png)
+
+<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 5. Distortion plot comparison between images taken at near-nadir and oblique angles. All calibrations done using five parameters (k1, k2, k3, p1, p2) and a checkerboard target.</em></p>
+
