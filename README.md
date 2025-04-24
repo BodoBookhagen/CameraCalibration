@@ -1,6 +1,6 @@
 # Camera Calibration using OpenCV
 
-[bodo.bookhagen@uni-potsdam.de](mailto: bodo.bookhagen@uni-potsdam.de)
+<bodo.bookhagen@uni-potsdam.de>
 
 There exist many resources for Camera Calibration and this has become a standard operating procedure. Here, we use OpenCV to calibrate single or stereo cameras using chessboard or ChArUco boards. We emphasize the importance of high-quality calibration boards that are on flat surfaces and not warped.
 
