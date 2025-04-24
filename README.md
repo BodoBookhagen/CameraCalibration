@@ -1,5 +1,7 @@
 # Camera Calibration using OpenCV
 
+[bodo.bookhagen@uni-potsdam.de](mailto: bodo.bookhagen@uni-potsdam.de)
+
 There exist many resources for Camera Calibration and this has become a standard operating procedure. Here, we use OpenCV to calibrate single or stereo cameras using chessboard or ChArUco boards. We emphasize the importance of high-quality calibration boards that are on flat surfaces and not warped.
 
 Alternative calibration options include importing calibration data produced with the [Calibrator calib.io Software](https://calib.io/products/calib), which relies on a different matrix-optimization approach and other flexible parameters. A python-based conversion code is available that converts output from Calibrator to the OpenCV XML camera matrix format.
@@ -14,8 +16,10 @@ Alternative calibration options include importing calibration data produced with
 - [Our testing](#Our-testing)
     - [Different calibration approaches](#Different-calibration-approaches)
     - [Which distortion coefficients should be estimated during calibration?](#which-coefficents)
-- Visualizing and comparing camera calibrations
-    - visualize the distortion field of the camera calibration file
+- [Visualizing and comparing camera calibrations](#Visualizing-camera-calibration-fields)
+    - [Visualize up to 4 distortion patterns from camera calibration files](#)Visualize-up-to-4-distortion-patterns-from-camera-calibration-file)
+    - [compare the distortion fields of two camera calibration files](#Visually-comparing-two-camera-calibration-files
+)
 
 ## Usage
 The parameters have been optimized for the cameras that are available at the Geological Remote Sensing lab at the University of Potsdam. These are several Sony alpha-6 (24 MP), Sony alpha-7 (40 MP), and Fuji X-100 (24 MP) all with 55 mm or 85 mm fixed lenses.
@@ -220,6 +224,31 @@ Figure 2 shows that, while the combinations of "k<sub>1</sub>, k<sub>2</sub>, k<
 # Visualizing camera calibration fields
 We provide a simple approach to visualize single camera calibration fields:
 
+## Visualize up to 4 distortion patterns from camera calibration files
+```bash
+python visualizeDistortion_from_CC_xml.py
+usage: visualizeDistortion_from_CC_xml.py [-h] --png_fn PNG_FN --CC0_fn CC0_FN --title0 TITLE0 --CC1_fn CC1_FN --title1 TITLE1 --CC2_fn CC2_FN --title2 TITLE2
+                                          --CC3_fn CC3_FN --title3 TITLE3 [--h H] [--w W]
+
+Visualize up to 4 distortion patterns from camera calibration files (bodo.bookhagen@uni-potsdam.de)
+
+options:
+  -h, --help       show this help message and exit
+  --png_fn PNG_FN  Outputfile for PNG (600 dpi)
+  --CC0_fn CC0_FN  OpenCV CameraCalibration XML file
+  --title0 TITLE0  Title for plot
+  --CC1_fn CC1_FN  OpenCV CameraCalibration XML file
+  --title1 TITLE1  Title for plot
+  --CC2_fn CC2_FN  OpenCV CameraCalibration XML file
+  --title2 TITLE2  Title for plot
+  --CC3_fn CC3_FN  OpenCV CameraCalibration XML file
+  --title3 TITLE3  Title for plot
+  --h H            Image height (pixels)
+  --w W            Image width (pixels)
+
+```
+
+## Visually comparing two camera calibration files
 ```bash
 python compareDistortion_from_CC_xml.py --CC0_fn Sony_ILCE-7RM5_50mm_checkerboard_23Apr2025.xml \
   --title0 Sony_ILCE-7RM5_50mm_checkerboard_23Apr2025 \ 
