@@ -45,7 +45,7 @@ def to_xml(filepath, xml_dir):
         jd = json.load(f)
 
     # Get file creation timestamp
-    created = datetime.fromtimestamp(os.stat(filepath).st_birthtime)
+    created = datetime.fromtimestamp(os.path.getmtime(filepath))
     created = created.strftime("%a %b %-d %H:%M:%S %Y")
 
     r = e.Element("opencv_storage")  # parent element

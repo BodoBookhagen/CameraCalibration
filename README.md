@@ -14,6 +14,8 @@ Alternative calibration options include importing calibration data produced with
 - [Our testing](#Our-testing)
     - [Different calibration approaches](#Different-calibration-approaches)
     - [Which distortion coefficients should be estimated during calibration?](#which-coefficents)
+- Visualizing and comparing camera calibrations
+    - visualize the distortion field of the camera calibration file
 
 ## Usage
 The parameters have been optimized for the cameras that are available at the Geological Remote Sensing lab at the University of Potsdam. These are several Sony alpha-6 (24 MP), Sony alpha-7 (40 MP), and Fuji X-100 (24 MP) all with 55 mm or 85 mm fixed lenses.
@@ -213,3 +215,18 @@ We conducted calibrations comparing different combinations of distortion coeffic
 <p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 2. Our results after solving for different combinations of distortion coefficients (using Calib.io). Left column: k<sub>1</sub>, k<sub>2</sub>; middle column: other coefficient combinations; right column: comparison plots.</em></p>
 
 Figure 2 shows that, while the combinations of "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", and "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub> result in slightly lower RMSE than "k<sub>1</sub>, k<sub>2</sub>", it is not enough to justify estimating for the additional p coefficients. Therefore, our recommendations are to use simply "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", without the need for additional p coefficients.
+
+
+# Visualizing camera calibration fields
+We provide a simple approach to visualize single camera calibration fields:
+
+```bash
+python compareDistortion_from_CC_xml.py --CC0_fn Sony_ILCE-7RM5_50mm_checkerboard_23Apr2025.xml \
+  --title0 Sony_ILCE-7RM5_50mm_checkerboard_23Apr2025 \ 
+  --CC1_fn Sony_ILCE-7RM5_50mm_kalibr_23Apr2025.xml \
+  --title1 Sony_ILCE-7RM5_50mm_kalibr_23Apr2025 \
+  --title_diff "Kalibr vs. checkerboard" \
+  --save_fname_3panel Sony_ILCE-7RM5_50mm_checkerboard_kalibr_23Apr2025_3panel.png \
+  --save_fname_1panel Sony_ILCE-7RM5_50mm_checkerboard_kalibr_23Apr2025_3panel.png
+```
+
