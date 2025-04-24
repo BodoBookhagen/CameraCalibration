@@ -1,0 +1,38 @@
+Aperture Value: 7.6
+Body Serial Number: 81M52146
+Brightness Value: 5.57
+Color Space: sRGB
+Components Configuration: 1, 2, 3, 0
+Compressed Bits Per Pixel: 4.8
+Custom Rendered: Normal process
+Date Time Digitized: 3 Mar, 2022 at 16:25:00
+Date Time Original: 3 Mar, 2022 at 16:25:00
+Exif Version: 2.3
+Exposure Bias Value: 0
+Exposure Mode: Auto exposure
+Exposure Program: Normal program
+Exposure Time: 1/120
+File Source: DSC
+Flash: No Flash
+FlashPix Version: 1.0
+FNumber: 14
+Focal Length: 23
+Focal Plane Resolution Unit: centimeters
+Focal Plane X Resolution: 2,564
+Focal Plane Y Resolution: 2,564
+Photographic Sensitivity (ISO): 2,500
+Light Source: unknown
+Max Aperture Value: 2
+Metering Mode: Pattern
+Pixel X Dimension: 6,000
+Pixel Y Dimension: 4,000
+Scene Capture Type: Standard
+Scene Type: A directly photographed image
+Sensing Method: One-chip color area sensor
+SensitivityType: Standard output sensitivity (SOS)
+Sharpness: Normal
+Shutter Speed Value: 1/120
+Subject Distance Range: unknown
+White Balance: Auto white balance
+AFInfo: 0.59, 0.345, 0.1, 0.1, f
+Focus Mode: AI Servo AF

@@ -1,0 +1,42 @@
+Brightness Value: 3.197
+Color Space: sRGB
+Components Configuration: 1, 2, 3, 0
+Compressed Bits Per Pixel: 6
+Contrast: Normal
+Custom Rendered: Normal process
+Date Time Digitized: 8 Jul, 2022 at 15:11:51
+Date Time Original: 8 Jul, 2022 at 15:11:51
+Digital Zoom Ratio: 1
+Exif Version: 2.3.1
+Exposure Bias Value: 0
+Exposure Mode: Manual exposure
+Exposure Program: Manual
+Exposure Time: 1/80
+File Source: DSC
+Flash: Off, did not fire
+FlashPix Version: 1.0
+FNumber: 14
+Focal Length: 55
+Focal Length In 35mm Film: 55
+Photographic Sensitivity (ISO): 3,200
+Lens Model: FE 55mm F1.8 ZA
+Lens Specification: 55, 55, 1.8, 1.8
+Light Source: unknown
+Max Aperture Value: 1.695
+Metering Mode: Pattern
+Time Zone for Modification Date: +01:00
+Time Zone for Digitized Date: +01:00
+Time Zone for Original Date: +01:00
+Pixel X Dimension: 7,952
+Pixel Y Dimension: 5,304
+RecommendedExposureIndex: 3,200
+Saturation: Normal
+Scene Capture Type: Standard
+Scene Type: A directly photographed image
+SensitivityType: Recommended exposure index (REI)
+Sharpness: Normal
+White Balance: Auto white balance
+Flash Compensation: 0
+Image Stabilization: Off
+Lens ID: 65,535
+Lens Model: Sony FE 55mm F1.8 ZA
