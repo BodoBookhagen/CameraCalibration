@@ -124,7 +124,7 @@ python python/calib-to-opencv.py -h
 
 ## Best practices<a name="best-practices" />
 ### Image capture
-Before capturing calibration images it is critical to ensure the camera is configured  and mounted properly, the board is high quality, and the scene is set appropriately to ensure a smooth calibration process.
+Before capturing calibration images it is critical to ensure the camera is configured  and mounted properly, the board is of high quality, and the scene is set appropriately to ensure a smooth calibration process.
 
 #### Configuring the camera
 
@@ -141,7 +141,7 @@ The camera should be mounted on a tripod to ensure that its internal and geometr
 #### Calibration targets<a name="calibration-targets" />
 We recommend the use of a high-quality calibration board such as the aluminum composite checkerboard or CharuCo targets made by [Calib.io](https://calib.io/), because any inconsistencies in the target's flatness or pattern will affect the calibration results. Target stiffness is also important as it is recommended to place the board in multiple orientations (often requiring it to be leaned at an angle against another object).
 
-We found that the checkerboard targets tended to provid better calibration results, but because the entire checkerboard needs to be within the frame at all times it can be somewhat tricky to align it perfectly in the corners (where the most distortion often is found). The CharuCo targets help with this issue as they do not need to be entirely in the frame, but at the cost of *slightly* worse results.
+We found that the checkerboard targets tended to provide better calibration results, but because the entire checkerboard needs to be within the frame at all times it can be somewhat tricky to align it perfectly in the corners (where the most distortion often is found). The CharuCo targets help with this issue as they do not need to be entirely in the frame, but at the cost of *slightly* worse results.
 
 <table><tr>
     <td> 
@@ -171,10 +171,12 @@ We found that the checkerboard targets tended to provid better calibration resul
     </td>
 </tr></table>
 
-If performing the calibration indoors, a well-lit environment with minimal shadows is key. LED lighting panels are good for this. Place the tripod with the camera in front of the target area and tilt the camera to a slightly oblique orientation to the ground. In fact, we found that calibrations conducted with the camera at an angle to the ground as opposed to looking straight down resulted in lower calibration error. For quick and consistent target placement during the shooting, we found it helped to first place tape along the edge of the camera frame. This can be done by placing the target in one corner of the frame as precisely as possible and then using it as a guide to place the tape. Repeat for the other three corners.
+If performing the calibration indoors, a well-lit environment with minimal shadows is key. Outdoor environments during noon times will work well, but avoid glare or reflections from the boards. LED lighting panels are good for this. Place the tripod with the camera in front of the target area and tilt the camera to a slightly oblique orientation to the ground. In fact, we found that calibrations conducted with the camera at an angle to the ground as opposed to looking straight down resulted in lower calibration error. For quick and consistent target placement during the shooting, we found it helped to first place tape along the edge of the camera frame. This can be done by placing the target in one corner of the frame as precisely as possible and then using it as a guide to place the tape. Repeat for the other three corners.
+
+We emphasize that a fixed camera setup is not required for a successful calibration, but it often helps having a tripod-mounted camera to avoid blur. In recent work we show that a moving camera with fixed calibration board results in the similar parameters as a fixed camera (with moving checkerboard).
 
 #### Taking the photos
-Once you have the frame marked out, we recommend taking 20-30 photos with the target covering every part of the frame at least once. Placing the target at oblique angles to the camera is also recommended, and for this we simply leaned the target up against an item in the lab and attempted to capture it in several different areas of the frame. If using the checkerboard, we had best results when placing it as close to the edge and in the corners of the frame as possible. This is simple when tape has been well-placed.
+Once you have the frame marked out, we recommend taking at least 20-30 photos (better 100) with the target covering every part of the frame at least once. Placing the target at oblique angles to the camera is also recommended, and for this we simply leaned the target up against an item in the lab and attempted to capture it in several different areas of the frame. If using the checkerboard, we had best results when placing it as close to the edge and in the corners of the frame as possible. This is simple when tape has been well-placed.
 
 As mentioned above, we recommend the use of a remote shutter or using a short self-timer to minimize vibration-induced blur in the final shots. 
 
@@ -190,9 +192,9 @@ As mentioned above, we recommend the use of a remote shutter or using a short se
 
 ### Calibration
 When using OpenCV or Calib.io, consider the following rules of thumb:
-- Only 20-30 images are necessary
-- If possible, estimate only for "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", leaving out additional p coefficents.
-- Use between 20 and 30 images.
+- Only 20-30 images are necessary, but more photos will help to remove outliers.
+- If possible, estimate only for "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", leaving out additional p coefficients. High-quality fixed lenses are not expected to have tangential distortion (but this may need to be evaluate for every lens and camera system separately)
+- While 30 images may allow you to obtain a reasonable camera calibration, we suggest to take additional photos to allow outlier removal and random selection of photos during advanced processing.
 
 ## Our testing
 To inform the above recommendations, multiple calibration sessions were conducted with a variety of cameras, targets, image counts, and target-camera orientations. To analyze the success of a calibration, we looked at each calibration's root mean squared reprojection error (RMSE) and distortion plot. To compare two calibrations' distortion plots, we simply took the difference between the two.
@@ -200,7 +202,7 @@ To inform the above recommendations, multiple calibration sessions were conducte
 ### Different calibration approaches
 #### Comparing calibration methods by RMSE
 ![RMSE comparison of several calibration variables](img/best-practices-comparison.png)
-<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 1. To optimize the calibration process, we investigated the performance of estimating for different combinations of distortion coefficients (left), the number of images that should be included in the calibration (center-left), target type (center-right), and camera type (right).</em></p>
+<p style="text-align: center;"><em style="color: grey; text-align:center;">To optimize the calibration process, we investigated the performance of estimating for different combinations of distortion coefficients (left), the number of images that should be included in the calibration (center-left), target type (center-right), and camera type (right).</em></p>
 
 As can be seen in Figure 1, the following potential recommendations emerge:
 - Include between 20 and 30 images.
@@ -216,9 +218,9 @@ We conducted calibrations comparing different combinations of distortion coeffic
 ![Comparison of k1, k2, vs. k1, k2, k3, p1](img/sony_a7_k1k2_k1k2k3p1_comparison.png)
 ![Comparison of k1, k2, vs. k1, k2, p1, p2](img/sony_a7_k1k2_k1k2p1p2_comparison.png)
 ![Comparison of k1, k2, vs. k1, k2, k3, p1, p2](img/sony_a7_k1k2_k1k2k3p1p2_comparison.png)
-<p style="text-align: center;"><em style="color: grey; text-align:center;">Figure 2. Our results after solving for different combinations of distortion coefficients (using Calib.io). Left column: k<sub>1</sub>, k<sub>2</sub>; middle column: other coefficient combinations; right column: comparison plots.</em></p>
+<p style="text-align: center;"><em style="color: grey; text-align:center;">Our results after solving for different combinations of distortion coefficients (using Calib.io). Left column: k<sub>1</sub>, k<sub>2</sub>; middle column: other coefficient combinations; right column: comparison plots.</em></p>
 
-Figure 2 shows that, while the combinations of "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", and "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub> result in slightly lower RMSE than "k<sub>1</sub>, k<sub>2</sub>", it is not enough to justify estimating for the additional p coefficients. Therefore, our recommendations are to use simply "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", without the need for additional p coefficients.
+The previous figure shows that, while the combinations of "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, p<sub>1</sub>", and "k<sub>1</sub>, k<sub>2</sub>, p<sub>2</sub> result in slightly lower RMSE than "k<sub>1</sub>, k<sub>2</sub>", it is not enough to justify estimating for the additional p coefficients. Therefore, our recommendations are to use simply "k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>", without the need for additional p coefficients.
 
 
 # Visualizing camera calibration fields
@@ -249,13 +251,32 @@ options:
 ```
 
 ## Visually comparing two camera calibration files
+Here we show an example of showing the difference between two camera calibration files - one generated from  checkerboard and a second one has been optimized within Metashape Agisoft in a setup with a strong camera geometry.
+
 ```bash
-python compareDistortion_from_CC_xml.py --CC0_fn Sony_ILCE-7RM5_50mm_checkerboard_23Apr2025.xml \
-  --title0 Sony_ILCE-7RM5_50mm_checkerboard_23Apr2025 \ 
-  --CC1_fn Sony_ILCE-7RM5_50mm_kalibr_23Apr2025.xml \
-  --title1 Sony_ILCE-7RM5_50mm_kalibr_23Apr2025 \
-  --title_diff "Kalibr vs. checkerboard" \
-  --save_fname_3panel Sony_ILCE-7RM5_50mm_checkerboard_kalibr_23Apr2025_3panel.png \
-  --save_fname_1panel Sony_ILCE-7RM5_50mm_checkerboard_kalibr_23Apr2025_3panel.png
+python /home/bodo/Dropbox/soft/github/CameraCalibration/python/compareDistortion_from_CC_xml.py \
+  --CC0_fn xml/Sony_ILCE-7RM5_50mm_checkerboard_fixed_5p_25Apr2025.xml --title0 'fixed checkerboard 5p' \
+  --CC1_fn xml/Sony_ILCE-7RM5_50mm_checkerboard_fixed_5p_25Apr2025_adjusted_outside_1_123images_202ktiepoints.xml --title1 'optimized by Metashape Agisoft' \
+  --save_fname_2panel Sony_ILCE-7RM5_50mm_checkerboard_fixed_MetashapeOptimized_5p_25Apr2025_2panel.png \
+  --save_fname_2panel_diff Sony_ILCE-7RM5_50mm_checkerboard_fixed_MetashapeOptimized_5p_25Apr2025_2panel_diff.png \
+  --save_fname_1panel Sony_ILCE-7RM5_50mm_checkerboard_fixed_MetashapeOptimized_5p_25Apr2025_2panel.png  \
+  --title_diff 'Offset Difference fixed checkerboard and Metashape optimized 5 p' \
+  --suptitle 'Sony 7RM5 50 mm'
 ```
+
+### Example outputs
+
+<center>
+<figure >
+    <a href="Sony_ILCE-7RM5_50mm_checkerboard_fixed_MetashapeOptimized_5p_25Apr2025_2panel.png"><img src="img/Sony_ILCE-7RM5_50mm_checkerboard_fixed_MetashapeOptimized_5p_25Apr2025_2panel.png"></a>
+</figure>
+</center>
+<figcaption>Distortion pattern with direction indicated by arrows and distortion magnitude (or offset) shown by color and contour lines. </figcaption>
+
+<center>
+<figure >
+    <a href="Sony_ILCE-7RM5_50mm_checkerboard_fixed_MetashapeOptimized_5p_25Apr2025_2panel_diff.png"><img src="img/Sony_ILCE-7RM5_50mm_checkerboard_fixed_MetashapeOptimized_5p_25Apr2025_2panel_diff.png"></a>
+</figure>
+</center>
+<figcaption>Difference between the distortion model generated from a fixed checkerboard setting and a Metashape Agisoft optimized camera calibration from a scene with strong camera geometry. Results for a 50 mm lens on a Sony 7RM5 are shown. The optimization process in Agisoft Metashape only slightly changed the camera calibration parameters. </figcaption>
 
